@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  <title>TinyToggle - jQuery plugin</title>
+	  <link href="src/tinytoggle/css/tiny-toggle.css" rel="stylesheet">
+	</head>	
+	<body>
+	 <section style="width: 750px; margin: auto;">
+	   <h1>TinyToggle</h1>
+		   <div><input type="checkbox" class="tiny-toggle" data-tt-size="small" name="tt-small"></div>  
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-type="circle" data-tt-size="medium" name="tt-medium"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="large" name="tt-large"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-type="square" data-tt-size="huge" name="tt-huge"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="monster" data-tt-type="power" data-tt-palette="power" name="tt-monster"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="giant" name="tt-giant"></div>	     	     
+	 </section>
+	 
+	 <!-- jQuery Import -->
+	 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>	 
+	 <script type="text/javascript" src="src/tinytoggle/js/tiny-toggle.js"></script>
+	 
+	 <script type="text/javascript"> 	     	  
+	   $( document ).ready( function() {	     
+	      $(".tiny-toggle").tinyToggle({
+	        onChange: function() {
+	          //console.log("cambio....");
+	        }
+	      });
+	   });
+	 </script>
+	 
+	</body>
+</html>
