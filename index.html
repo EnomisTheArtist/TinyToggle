@@ -1,33 +1,80 @@
 <!DOCTYPE HTML>
-
-<html>
+<html ng-app="ttApp">
 	<head>
 	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	  <title>TinyToggle - jQuery plugin</title>
-	  <link href="src/tinytoggle/css/tiny-toggle.css" rel="stylesheet">
+	  <link href='https://fonts.googleapis.com/css?family=Roboto:100,400' rel='stylesheet' type='text/css'>
+	  <link href="src/tinytoggle/css/normalize.css" rel="stylesheet">
+	  <link href="src/tinytoggle/css/index.css" rel="stylesheet">	  
+	  <link href="dist/css/tinytoggle.min.css" rel="stylesheet">
 	</head>	
 	<body>
-	 <section style="width: 750px; margin: auto;">
-	   <h1>TinyToggle</h1>
-		   <div><input type="checkbox" class="tiny-toggle" data-tt-size="small" name="tt-small"></div>  
-	     <div><input type="checkbox" class="tiny-toggle" data-tt-type="circle" data-tt-size="medium" name="tt-medium"></div>
+	
+	 <div class="wrapper">
+	   <section id="sizes" style="width: 750px; margin: auto;">
+	     <div class="header">
+	       <h2>Sizes Available</h2>	     
+	       <p>TiniToggle has <span>six different sizes</span> available</p>
+	     </div>
+	     
+	     <div class="content">
+		     <div class="half">
+		         1 colonna...
+		     </div>
+		     
+		     <div class="half">
+		       <table class="table">
+		        <tr>
+		          <td>Small</td>
+		          <td><input type="checkbox" class="tiny-toggle" data-tt-size="small" name="size-tt-small"></td>
+		        </tr>
+		       </table>	       
+		     </div>
+	     </div>
+	     
+	     <div class="fix"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="mini" name="tt-small"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="small" name="tt-small"></div>  
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="medium" name="tt-medium"></div>
 	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="large" name="tt-large"></div>
-	     <div><input type="checkbox" class="tiny-toggle" data-tt-type="square" data-tt-size="huge" name="tt-huge"></div>
-	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="monster" data-tt-type="power" data-tt-palette="power" name="tt-monster"></div>
-	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="giant" name="tt-giant"></div>	     	     
-	 </section>
-	 
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="big" name="tt-large"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="huge" name="tt-huge"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="monster" name="tt-monster"></div>
+	     <div><input type="checkbox" class="tiny-toggle" data-tt-size="giant" name="tt-giant"></div>
+	     
+	     <div><input id="cb1" type="checkbox" class="tiny-toggle"></div>
+	     
+	     <button onclick="$('#cb1').tinyToggle('check')">Check</button>
+	     <button onclick="$('#cb1').tinyToggle('uncheck')">unCheck</button>
+	     <button onclick="$('#cb1').tinyToggle('toggle')">Toggle</button>
+	     
+	   </section>
+   </div>
+    	 
 	 <!-- jQuery Import -->
-	 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>	 
+	 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+	 <script type="text/javascript" src="src/tinytoggle/js/tt-angular.js"></script>
+	 
+	 
 	 <script type="text/javascript" src="src/tinytoggle/js/tiny-toggle.js"></script>
 	 
 	 <script type="text/javascript"> 	     	  
 	   $( document ).ready( function() {	     
-	      $(".tiny-toggle").tinyToggle({
-	        onChange: function() {
-	          //console.log("cambio....");
-	        }
+		   
+		    $.fn.TinyToggle.palettes["mypalette"] = {check:'#666666', uncheck:'#CCCCCC'};
+		    //$.fn.TinyToggle.sizes["mysize"] = '85px';
+		    $.fn.TinyToggle.defaults.type = 'circle';		    
+		    $.fn.TinyToggle.defaults.palette = 'red';
+		    //$.fn.TinyToggle.defaults.size = 'mysize';
+		    
+	      $("#sizes .tiny-toggle").tinyToggle({
+	    	  //colors: { check:'#009988', uncheck:'#22ddcc' },
+	        onChange: function(obj, value) { console.log("Input value changed for '" + obj.attr("name") + "' new value is " + value ); },
+	        onCheck: function(obj) { console.log("Input '" + obj.attr("name") + "' now is TRUE"); },
+          onUncheck: function(obj) { console.log("Input '" + obj.attr("name") + "' now is FALSE"); }	        
 	      });
+		    
 	   });
 	 </script>
 	 

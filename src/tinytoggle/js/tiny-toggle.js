@@ -1,80 +1,100 @@
 (function($){
     
-    var TinyToggle =  {
+    $.fn.TinyToggle =  {
         defaults: {
-          type: 'toggle',  // [toggle, circle, dotCircle, square]
-          size: 'medium',  // [small, medium, large, huge, monster, giant]
+          type: 'toggle',  
+          size: 'medium', 
           palette: 'standard',
           colors: null,
           icons: null,
-          onChange: null          
+          onChange: null,
+          onCheck: null,
+          onUncheck: null
         },
         types: {
           toggle:     { checked: 'tt-switch-on', unchecked: 'tt-switch-off' },
-          circle:     { checked: 'tt-check-circle', unchecked: 'tt-uncheck-circle' },
+          dot:        { checked: 'tt-check-circle', unchecked: 'tt-uncheck-circle' },
+          circle:     { checked: 'tt-check-circle-empty-v', unchecked: 'tt-check-circle-empty-v' },
           square:     { checked: 'tt-check-square',   unchecked: 'tt-uncheck-square' },
+          square_v:   { checked: 'tt-check-square-outbound-v',   unchecked: 'tt-check-square-outbound-v' },
           power:      { checked: 'tt-power',   unchecked: 'tt-power' },
+          check:      { checked: 'tt-check-v',   unchecked: 'tt-check-v' },
+          like:       { checked: 'tt-like',   unchecked: 'tt-like' },
+          watch:      { checked: 'tt-watch',   unchecked: 'tt-watch' },
+          star:       { checked: 'tt-star',   unchecked: 'tt-star' },
+          lock:       { checked: 'tt-lock',   unchecked: 'tt-lock' },
+          heart:      { checked: 'tt-heart',   unchecked: 'tt-heart' },
+          smile:      { checked: 'tt-smile',   unchecked: 'tt-smile' },
         },        
         palettes: {
           standard:     { check: '#009900', uncheck: '#999999' },
-          power:        { check: '#FFFF00', uncheck: '#FFCC00' }
-        },               
-        setDefaults: function($options) {
-          TinyToggle.defaults = jQuery.extend(TinyToggle.defaults, options);
+          black:        { check: '#000000', uncheck: '#CCCCCC' },
+          white:        { check: '#FFFFFF', uncheck: '#333333' },
+          blue:         { check: '#0066FF', uncheck: '#CCE0FF' },
+          red:          { check: '#CC0000', uncheck: '#F0B2B2' },
+          green:        { check: '#009933', uncheck: '#66FF99' },
+          purple:       { check: '#CC3399', uncheck: '#FFCCFF' },
+          yellow:       { check: '#FFCC00', uncheck: '#FFFFCC' }
         },
-        colorLuminance: function(hex, lum) {
-          hex = String(hex).replace(/[^0-9a-f]/gi, '');
-          if (hex.length < 6) { hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2]; }
-          lum = lum || 0;
-          var rgb = "", c, i;
-          for (i = 0; i < 3; i++) {
-            c = parseInt(hex.substr(i*2,2), 16);
-            c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
-            rgb += ("00"+c).substr(c.length);
-          }
-          return rgb;
-        }        
+        sizes: {
+        	mini: 		'1em',
+        	small: 		'1.2em',
+        	medium: 	'1.5em',
+        	large: 		'2em',
+        	big: 		'2.5em',
+        	huge: 		'3em',
+        	monster: 	'4em',
+        	giant: 		'5em'         		
+        }
     }
   
-    jQuery.fn.tinyToggle = function(method) {
-        if ( _tinyToggleMethods[method] ) {
-            return _tinyToggleMethods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-          } else if ( typeof method === 'object' || ! method ) {
-            return _tinyToggleMethods.init.apply( this, arguments );
-          } else {
-            jQuery.error( 'Method ' +  method + ' does not exist on jQuery.tinyToggle' );
-          }       
+    $.fn.tinyToggle = function(method) {
+	    if ( _tinyToggleMethods[method] ) {
+	        return _tinyToggleMethods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+	      } else if ( typeof method === 'object' || ! method ) {
+	        return _tinyToggleMethods.init.apply( this, arguments );
+	      } else {
+	        $.error( 'Method ' +  method + ' does not exist on $.tinyToggle' );
+	      }       
     }; 
 
    var _tinyToggleMethods = {   
-      init: function(options) {
-        
+      init: function(options) {        
         return this.each(function(){
-          var opt = jQuery.extend({}, TinyToggle.defaults, options);               
-          var me = jQuery(this);
+          var opt = $.extend({}, $.fn.TinyToggle.defaults, options);               
+          var me = $(this);
           me.hide();
           var wrapper = me.parent();              
-          var span = jQuery("<span/>").addClass("tt").append(me);
-          var icon = jQuery("<i></i>");
+          var span = $("<span/>").addClass("tt").append(me);
+          var icon = $("<i></i>");
           
-          if ( me.data("tt-size") != undefined ) opt.size = me.data("tt-size");          
-          span.addClass(opt.size);
+          if ( me.data("tt-size") != undefined ) opt.size = me.data("tt-size");
+          var fontsize = $.fn.TinyToggle.sizes[opt.size];          
+          if ( me.data("tt-custom-size") != undefined ) fontsize = me.data("tt-custom-size");          
+          span.css("font-size", fontsize);
           
           // TYPE DEFINITION
+          opt.icons = null;
           if ( me.data("tt-type") != undefined ) {
-            if ( TinyToggle.types[ me.data("tt-type") ] != undefined ) {
+            if ( $.fn.TinyToggle.types[ me.data("tt-type") ] != undefined ) {
               opt.type = me.data("tt-type"); 
             }
           }              
-          opt.icons = TinyToggle.types[ opt.type ];
+          opt.icons = $.extend({}, $.fn.TinyToggle.types[ opt.type ]);
           
           // PALETTE DEFINITIONS
           if ( me.data("tt-palette") != undefined ) {
-            if ( TinyToggle.palettes[ me.data("tt-palette") ] != undefined ) {
+            if ( $.fn.TinyToggle.palettes[ me.data("tt-palette") ] != undefined ) {
               opt.palette = me.data("tt-palette");
             }
-          }                        
-          opt.colors = TinyToggle.palettes[ opt.palette ];
+          }   
+          
+          if ( options.colors != null ) opt.colors = $.extend({}, options.colors);
+          else opt.colors = $.extend({}, $.fn.TinyToggle.palettes[ opt.palette ]);
+          
+          // OVERWRITE COLORS WITH TAG DATA ATTRIBUTE IF EXISTS
+          if ( me.data('tt-color-check') != undefined ) opt.colors.check = me.data('tt-color-check'); 
+          if ( me.data('tt-color-uncheck') != undefined ) opt.colors.uncheck = me.data('tt-color-uncheck'); 
           
           
           // CHECK THE CURRENT STATUS OF CHECKBOX INPUT
@@ -90,19 +110,18 @@
           // APPEND ICON TO THE SPAN AND THE SPAN TO THE WRAPPER
           wrapper.append(span.append(icon));              
           
+          // MANAGE CLICK EVENT ON THE ICON OBJECT
           icon.click(function(){
             me.tinyToggle("toggle");
           });    
           
+          // MANAGE HOVER STATUS FOR THE SPAN WRAPPER
           span.hover(
               function() { $(this).find("i").addClass("tt-hover") },
               function() { $(this).find("i").removeClass("tt-hover") }  
           );
                         
-          opt.ui = span;             
-          if ( jQuery.isFunction(opt.onChange) ) {
-            opt.onChange = opt.onChange;
-          }             
+          opt.ui = span;
           
           // STORE THE OBJECT DATA
           me.data( opt );          
@@ -110,28 +129,31 @@
       },      
       toggle: function() {
         return this.each(function(){
-          var me = jQuery(this);
+          var me = $(this);
           var check = me.is(":checked");
-          var data = jQuery(this).data();
+          var data = $(this).data();
           if ( check ) {
-            data.ui.find("i").removeClass( data.icons.checked ).addClass( data.icons.unchecked ).css('color', '#'+data.colors.uncheck);
-            me.prop("checked", false);
+            data.ui.find("i").removeClass( data.icons.checked ).addClass( data.icons.unchecked ).css('color', data.colors.uncheck);
+            me.prop("checked", false).removeAttr("checked");
+            if ( $.isFunction(data.onUncheck) ) data.onUncheck.call(this, me);
           } else {
-            data.ui.find("i").removeClass( data.icons.unchecked ).addClass( data.icons.checked ).css('color', '#'+data.colors.check);
-            me.prop("checked", true);
+            data.ui.find("i").removeClass( data.icons.unchecked ).addClass( data.icons.checked ).css('color', data.colors.check);
+            me.prop("checked", true).attr("checked", "checked");
+            if ( $.isFunction(data.onCheck)) data.onCheck.call(this, me);
           }         
-          if ( data.onChange ) {
-            data.onChange.call( me, check );
-          }         
+          if ( $.isFunction(data.onChange) ) data.onChange.call( this, me, me.is(":checked") );          
         });
       },
-      onChange: function(handler) {
+      check: function() {
         return this.each(function(){
-          var me = jQuery(this);
-          var data = jQuery(this).data();
-          data.onChange = handler; 
+	      if ( !$(this).is(":checked") )  $(this).tinyToggle("toggle");
         });
-      }           
+      },
+      uncheck: function() {
+        return this.each(function(){
+        	if ( $(this).is(":checked") )  $(this).tinyToggle("toggle");
+        });
+      }  
    };    
     
 })( jQuery );

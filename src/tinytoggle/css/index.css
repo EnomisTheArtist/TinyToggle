@@ -1,0 +1,52 @@
+html {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+	font-size: 1em;
+	line-height: 1.1em;
+}
+
+.wrapper {
+	width: 760px;
+	margin: auto;
+}
+
+.half {
+	display: inline;
+	float: left;
+	width: 50%;	
+}
+
+
+.fix {
+	clear: both;
+}
+
+
+p > span {
+	color: #009933;
+	font-weight: 400;	
+}
+
+section .header {
+	margin-top: 50px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #ECECEC;
+}
+
+section .header p {
+	font-size: 0.9em;
+	color: #666666;
+}
+
+setion .content {
+	
+}
+
+
+.table {
+	width: 100%;	 	
+}
+
+.table td {
+	padding: 10px;
+}
