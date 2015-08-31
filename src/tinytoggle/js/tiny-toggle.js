@@ -7,18 +7,20 @@
           palette: 'standard',
           colors: null,
           icons: null,
+          disabled: false,
+          onReady: null,
           onChange: null,
           onCheck: null,
           onUncheck: null
         },
         types: {
           toggle:     { checked: 'tt-switch-on', unchecked: 'tt-switch-off' },
-          dot:        { checked: 'tt-check-circle', unchecked: 'tt-uncheck-circle' },
+          check:      { checked: 'tt-check-v',   unchecked: 'tt-check-v' },
           circle:     { checked: 'tt-check-circle-empty-v', unchecked: 'tt-check-circle-empty-v' },
           square:     { checked: 'tt-check-square',   unchecked: 'tt-uncheck-square' },
           square_v:   { checked: 'tt-check-square-outbound-v',   unchecked: 'tt-check-square-outbound-v' },
-          power:      { checked: 'tt-power',   unchecked: 'tt-power' },
-          check:      { checked: 'tt-check-v',   unchecked: 'tt-check-v' },
+          power:      { checked: 'tt-power',   unchecked: 'tt-power' },          
+          dot:        { checked: 'tt-check-circle', unchecked: 'tt-uncheck-circle' },          
           like:       { checked: 'tt-like',   unchecked: 'tt-like' },
           watch:      { checked: 'tt-watch',   unchecked: 'tt-watch' },
           star:       { checked: 'tt-star',   unchecked: 'tt-star' },
@@ -28,20 +30,20 @@
         },        
         palettes: {
           standard:     { check: '#009900', uncheck: '#999999' },
-          black:        { check: '#000000', uncheck: '#CCCCCC' },
-          white:        { check: '#FFFFFF', uncheck: '#333333' },
-          blue:         { check: '#0066FF', uncheck: '#CCE0FF' },
-          red:          { check: '#CC0000', uncheck: '#F0B2B2' },
-          green:        { check: '#009933', uncheck: '#66FF99' },
-          purple:       { check: '#CC3399', uncheck: '#FFCCFF' },
-          yellow:       { check: '#FFCC00', uncheck: '#FFFFCC' }
+          black:        { check: '#000000', uncheck: '#999999' },
+          white:        { check: '#FFFFFF', uncheck: '#999999' },
+          blue:         { check: '#0066FF', uncheck: '#999999' },
+          red:          { check: '#CC0000', uncheck: '#999999' },
+          green:        { check: '#009933', uncheck: '#999999' },
+          purple:       { check: '#CC3399', uncheck: '#999999' },
+          yellow:       { check: '#FFCC00', uncheck: '#999999' }
         },
         sizes: {
         	mini: 		'1em',
         	small: 		'1.2em',
         	medium: 	'1.5em',
         	large: 		'2em',
-        	big: 		'2.5em',
+        	big: 		  '2.5em',
         	huge: 		'3em',
         	monster: 	'4em',
         	giant: 		'5em'         		
@@ -59,15 +61,22 @@
     }; 
 
    var _tinyToggleMethods = {   
-      init: function(options) {        
+      init: function(options) {    
+        if ( !options ) options = {};
         return this.each(function(){
-          var opt = $.extend({}, $.fn.TinyToggle.defaults, options);               
+          var opt = $.extend({}, $.fn.TinyToggle.defaults, options);             
+          
           var me = $(this);
           me.hide();
           var wrapper = me.parent();              
           var span = $("<span/>").addClass("tt").append(me);
           var icon = $("<i></i>");
           
+          // TEST THE DISABLE ATTRIBUTE FOR CHECKBOX
+          if ( me.attr("disabled") != undefined ) opt.disabled = true;
+          if ( opt.disabled ) span.addClass("tt-disabled");
+          
+          // SIZE AND CUSTOM SIZE
           if ( me.data("tt-size") != undefined ) opt.size = me.data("tt-size");
           var fontsize = $.fn.TinyToggle.sizes[opt.size];          
           if ( me.data("tt-custom-size") != undefined ) fontsize = me.data("tt-custom-size");          
@@ -89,6 +98,8 @@
             }
           }   
           
+          // IF EXISTS COLORS OBJECT IN THE OPTIONS  USE THEM OTHERWISE LOAD PALETTE FROM
+          // DEFALTS REPOSITORY
           if ( options.colors != null ) opt.colors = $.extend({}, options.colors);
           else opt.colors = $.extend({}, $.fn.TinyToggle.palettes[ opt.palette ]);
           
@@ -117,43 +128,60 @@
           
           // MANAGE HOVER STATUS FOR THE SPAN WRAPPER
           span.hover(
-              function() { $(this).find("i").addClass("tt-hover") },
-              function() { $(this).find("i").removeClass("tt-hover") }  
+              function() { if ( !me.data("disabled") ) $(this).find("i").addClass("tt-hover") },
+              function() { if ( !me.data("disabled") ) $(this).find("i").removeClass("tt-hover") }  
           );
                         
           opt.ui = span;
           
           // STORE THE OBJECT DATA
-          me.data( opt );          
+          me.data( opt );     
+          
+          // CALLBACK ONREADY EVENT IF EXISTS
+          if ( $.isFunction( opt.onReady ) ) opt.onReady.call(this, me);          
         });         
       },      
       toggle: function() {
         return this.each(function(){
           var me = $(this);
-          var check = me.is(":checked");
-          var data = $(this).data();
-          if ( check ) {
-            data.ui.find("i").removeClass( data.icons.checked ).addClass( data.icons.unchecked ).css('color', data.colors.uncheck);
-            me.prop("checked", false).removeAttr("checked");
-            if ( $.isFunction(data.onUncheck) ) data.onUncheck.call(this, me);
-          } else {
-            data.ui.find("i").removeClass( data.icons.unchecked ).addClass( data.icons.checked ).css('color', data.colors.check);
-            me.prop("checked", true).attr("checked", "checked");
-            if ( $.isFunction(data.onCheck)) data.onCheck.call(this, me);
-          }         
-          if ( $.isFunction(data.onChange) ) data.onChange.call( this, me, me.is(":checked") );          
+          if ( !me.data("disabled") ) {
+            var check = me.is(":checked");
+            var data = me.data();
+            if ( check ) {
+              data.ui.find("i").removeClass( data.icons.checked ).addClass( data.icons.unchecked ).css('color', data.colors.uncheck);
+              me.prop("checked", false).removeAttr("checked");
+              if ( $.isFunction(data.onUncheck) ) data.onUncheck.call(this, me);
+            } else {
+              data.ui.find("i").removeClass( data.icons.unchecked ).addClass( data.icons.checked ).css('color', data.colors.check);
+              me.prop("checked", true).attr("checked", "checked");
+              if ( $.isFunction(data.onCheck)) data.onCheck.call(this, me);
+            }         
+            if ( $.isFunction(data.onChange) ) data.onChange.call( this, me, me.is(":checked") );
+          }
         });
       },
       check: function() {
         return this.each(function(){
-	      if ( !$(this).is(":checked") )  $(this).tinyToggle("toggle");
+          if ( !$(this).is(":checked") && !$(this).data("disabled")  )  $(this).tinyToggle("toggle");
         });
       },
       uncheck: function() {
         return this.each(function(){
-        	if ( $(this).is(":checked") )  $(this).tinyToggle("toggle");
+        	if ( $(this).is(":checked") && !$(this).data("disabled") )  $(this).tinyToggle("toggle");
         });
-      }  
+      },
+      disable: function() {
+        return this.each(function(){
+          $(this).data('disabled', true);
+          $(this).data("ui").addClass("tt-disabled");
+        });        
+      },
+      enable: function() {
+        return this.each(function(){
+          $(this).data('disabled', false);
+          $(this).data("ui").removeClass("tt-disabled");
+        });        
+      }     
    };    
     
 })( jQuery );

@@ -57,7 +57,7 @@
 .tt-smile:before { content: "q"; }
 .tt-watch:before { content: "s"; }
 .tt-heart:before { content: "u"; }
-.tt-star:before { content: "w"; }
+.tt-star:before { content: "v"; }
 .tt-like:before { content: "x"; }
 
 .tt {
@@ -68,5 +68,10 @@
 .tt-hover {
 	-moz-opacity: 0.70;
   opacity: 0.70;
+}
+
+.tt-disabled {
+  -moz-opacity: 0.40;
+  opacity: 0.40;	
 }
 

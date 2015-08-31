@@ -1,7 +1,6 @@
 # TinyToggle
 jQuery plugin to create a flexible and beauty checkbox input
 
-# WIP!!! The plugin is in develop.... coming soon!
 
 ## Install
 
@@ -104,7 +103,6 @@ By data attribute you can customize deeper you checkboxes, for example you can s
 * heart
 * smile
 
-
 #### Sizes 
 * mini
 * small
@@ -128,23 +126,67 @@ By data attribute you can customize deeper you checkboxes, for example you can s
 
 # Events and behaviours
 
-TinyToggle has three events available, you can specify events like a function when the plug-in was started.
+TinyToggle has four functions available, you may specify during the plug-in initialization.
 
-```js
-$( document ).ready( function() {      
-  $("#my-checkbox").tinyToggle({
-    onChange:  function(checkbox, value)  { alert('value changed now is: ' + value) },
-    onCheck:   function(checkbox)  { alert('value changed now is checked') },
-    onUncheck: function(checkbox)  { alert('value changed now is unchecked') },
-  });
+```js      
+$("#my-checkbox").tinyToggle({
+  onReady:   function(checkbox)  { alert('TinyToggle is ready!'); },
+  onChange:  function(checkbox, value)  { alert('value changed now is: ' + value); },
+  onCheck:   function(checkbox)  { alert('value changed now is checked'); },
+  onUncheck: function(checkbox)  { alert('value changed now is unchecked'); },
 });
 ```
 
+Use options 'disabled' set to true for lock the TinyToggle controller.
+
+```js      
+$("#my-checkbox").tinyToggle({
+  disabled:   true
+});
+```
+Otherwise you can specify the attribute 'disabled' in the checkbox HTML tag attributes to lock controller.
+
+```html
+<input type="checkbox" id="my-checkbox" name="opt1" class="tiny-toggle" disabled>
+```
+
+
 # Methods
 
-You can toggle the checkbox value programmatically using the 'toggle' implemented method.
+you can interact programmatically with the controller using the implemented methods.
+
+
+### Toggle
+Switch the status of checkbox.
 
 ```js
   $("#my-checkbox").tinyToggle('toggle');
 ```
 
+### check
+Set checkbox checked if current status is unchecked otherwise do nothing.
+
+```js
+  $("#my-checkbox").tinyToggle('check');
+```
+
+### uncheck
+Set checkbox unchecked if current status is checked otherwise do nothing.
+
+```js
+  $("#my-checkbox").tinyToggle('uncheck');
+```
+
+### enable
+Enable checkbox
+
+```js
+  $("#my-checkbox").tinyToggle('enable');
+```
+
+### disable
+Disable checkbox
+
+```js
+  $("#my-checkbox").tinyToggle('disable');
+```
