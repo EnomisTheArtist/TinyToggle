@@ -1,6 +1,7 @@
 # TinyToggle
 jQuery plugin to create a flexible and beauty checkbox input
 
+Watch what TinyToggle can do at the [Demo Page](http://simonerighi.net/tinytoggle/demo)
 
 ## Install
 

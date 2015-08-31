@@ -1,21 +1,33 @@
 <!DOCTYPE HTML>
-<html ng-app="ttApp">
+<html>
  <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
    <title>TinyToggle - jQuery plugin</title>
-   <link href='https://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
-   <link href="src/tinytoggle/css/normalize.css" rel="stylesheet">
-   <link href="src/tinytoggle/css/index.css" rel="stylesheet">   
-   <link href="src/tinytoggle/css/tiny-toggle.css" rel="stylesheet">
+   <link href='https://fonts.googleapis.com/css?family=Lato:200,400' rel='stylesheet' type='text/css'>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" rel="stylesheet">   
+   <link href="demo.css" rel="stylesheet">
+   <!-- LINK THE SRC TINYTOGGLE CSS -->   
+   <link href="../src/tinytoggle/css/tiny-toggle.css" rel="stylesheet">
  </head> 
  <body>
  
   <div class="wrapper">
+    
+    <a href="https://github.com/EnomisTheArtist/TinyToggle" target="_blank"><img src="github-fork-me.png" class="fork-me"></a>
   
-    <section id="types" style="width: 750px; margin: auto;">
+    <section>
       <div class="header">
-        <h1>Types Available</h1>       
-        <p>TiniToggle has <span>13 different types</span> available</p>
+        <h1>TinyToggle <small><span class="text-muted">Version 1.0.1</span></small></h1>       
+        <p>jQuery plugin to create a <span>flexible and beauty</span> checkbox input</p>
+      </div>
+      <div class="text-right"><span class="text-muted">Created by EnomisTheArtist - simone.righi@icloud.com</span></div>
+    </section> 
+  
+  
+    <section id="types">
+      <div class="header">
+        <h2>Types Available</h2>       
+        <p>TinyToggle has <span>13 different types</span> available</p>
       </div>
       
       <div class="content">
@@ -24,67 +36,67 @@
            <td colspan="3" class="title">Types</td>
          </tr>
          <tr>
-           <td class="text-right">Toggle</td>
+           <td class="text-right label">Toggle</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle"></td>
            <td><pre>data-tt-type="toggle"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Check</td>
+           <td class="text-right label">Check</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="check"></td>
            <td><pre>data-tt-type="check"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Circle</td>
+           <td class="text-right label">Circle</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="circle"></td>
            <td><pre>data-tt-type="circle"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Square</td>
+           <td class="text-right label">Square</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="square"></td>
            <td><pre>data-tt-type="square"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Square Checked</td>
+           <td class="text-right label">Square Checked</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="square_v"></td>
            <td><pre>data-tt-type="square_v"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Power</td>
+           <td class="text-right label">Power</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="power"></td>
            <td><pre>data-tt-type="power"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Dot</td>
+           <td class="text-right label">Dot</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="dot"></td>
            <td><pre>data-tt-type="dot"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Like</td>
+           <td class="text-right label">Like</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="like"></td>
            <td><pre>data-tt-type="like"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Watch</td>
+           <td class="text-right label">Watch</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="watch"></td>
            <td><pre>data-tt-type="watch"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Star</td>
+           <td class="text-right label">Star</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="star"></td>
            <td><pre>data-tt-type="star"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Lock</td>
+           <td class="text-right label">Lock</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="lock"></td>
            <td><pre>data-tt-type="lock"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Heart</td>
+           <td class="text-right label">Heart</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="heart"></td>
            <td><pre>data-tt-type="heart"</pre></td>
          </tr>          
          <tr>
-           <td class="text-right">Smile</td>
+           <td class="text-right label">Smile</td>
            <td class="text-center"><input type="checkbox" class="tiny-toggle" data-tt-type="smile"></td>
            <td><pre>data-tt-type="smile"</pre></td>
          </tr> 
@@ -92,10 +104,10 @@
       </div>
    </section>
 
-  <section id="sizes" style="width: 750px; margin: auto;">
+  <section id="sizes">
     <div class="header">
-       <h1>Sizes and Palettes Available</h1>      
-        <p>TiniToggle has <span>8 different sizes and palettes</span> available</p>
+       <h2>Sizes and Palettes Available</h2>      
+        <p>TinyToggle has <span>8 different sizes and palettes</span> available</p>
       </div>
       
       <div class="content">
@@ -106,35 +118,35 @@
                <td colspan="2" class="title">Sizes</td>
              </tr>
              <tr>
-               <td class="text-right">Mini</td>
+               <td class="text-right label">Mini</td>
                <td><input type="checkbox" class="tiny-toggle" data-tt-size="mini"></td>
              </tr>
              <tr>
-               <td class="text-right">Small</td>
+               <td class="text-right label">Small</td>
                <td><input type="checkbox" class="tiny-toggle" data-tt-size="small"></td>
              </tr>
              <tr>
-               <td class="text-right">Medium</td>
+               <td class="text-right label">Medium</td>
                <td><input type="checkbox" class="tiny-toggle" data-tt-size="medium"></td>
              </tr>           
              <tr>
-               <td class="text-right">Large</td>
+               <td class="text-right label">Large</td>
                <td><input type="checkbox" class="tiny-toggle" data-tt-size="large"></td>
              </tr>           
              <tr>
-               <td class="text-right">Big</td>
+               <td class="text-right label">Big</td>
                <td><input type="checkbox" class="tiny-toggle" data-tt-size="big"></td>
              </tr>           
              <tr>
-               <td class="text-right">Huge</td>
+               <td class="text-right label">Huge</td>
                <td><input type="checkbox" class="tiny-toggle" data-tt-size="huge"></td>
              </tr>           
              <tr>
-               <td class="text-right">Monster</td>
+               <td class="text-right label">Monster</td>
                <td><input type="checkbox" class="tiny-toggle" data-tt-size="monster"></td>
              </tr>           
              <tr>
-               <td class="text-right">Giant</td>
+               <td class="text-right label">Giant</td>
                <td><input type="checkbox" class="tiny-toggle" data-tt-size="giant"></td>
              </tr>                       
             </table>  
@@ -148,31 +160,31 @@
             <td colspan="2" class="title">Palettes</td>
           </tr>
           <tr>
-            <td class="text-right">Standard</td>
+            <td class="text-right label">Standard</td>
             <td><input type="checkbox" class="tiny-toggle" checked></td>
           </tr>
             <tr>
-              <td class="text-right">Black</td>
+              <td class="text-right label">Black</td>
               <td><input type="checkbox" class="tiny-toggle" data-tt-palette="black" checked></td>
             </tr>
             <tr>
-              <td class="text-right">Blue</td>
+              <td class="text-right label">Blue</td>
               <td><input type="checkbox" class="tiny-toggle" data-tt-palette="blue" checked></td>
             </tr>           
             <tr>
-              <td class="text-right">Purple</td>
+              <td class="text-right label">Purple</td>
               <td><input type="checkbox" class="tiny-toggle" data-tt-palette="purple" checked></td>
             </tr>           
             <tr>
-              <td class="text-right">Red</td>
+              <td class="text-right label">Red</td>
               <td><input type="checkbox" class="tiny-toggle" data-tt-palette="red" checked></td>
             </tr>           
             <tr>
-              <td class="text-right">Green</td>
+              <td class="text-right label">Green</td>
               <td><input type="checkbox" class="tiny-toggle" data-tt-palette="green" checked></td>
             </tr>           
             <tr>
-              <td class="text-right">Yellow</td>
+              <td class="text-right label">Yellow</td>
               <td><input type="checkbox" class="tiny-toggle" data-tt-palette="yellow" checked></td>
             </tr>
             <tr>
@@ -186,51 +198,44 @@
     <div class="fix"></div>
   </section>
   
-  <section id="methods" style="width: 750px; margin: auto;">
+  <section id="methods">
     <div class="header">
-      <h1>Programmatically interaction</h1>      
-      <p>TiniToggle has <span>5 methods</span> implemented</p>
+      <h2>Interaction and Callbacks</h2>      
+      <p>TinyToggle has <span>5 methods</span> implemented</p>
     </div>
     
     <div class="content">
       <table class="table">
         <tr>
-          <td class="title">Methods</td>
+          <td class="title">Test TinyToggle Methods</td>
         </tr>
         <tr>
           <td class="text-center">
-            <input id="cb1" name="my_option" type="checkbox" class="tiny-toggle" data-tt-size="big">
+            <input id="cb1" name="my_option" type="checkbox" class="tiny-toggle" data-tt-size="huge">
           </td>
         </tr>
         <tr>          
           <td class="text-center">
             <button class="myButton" onclick="$('#cb1').tinyToggle('enable')">Enable</button>
             <button class="myButton" onclick="$('#cb1').tinyToggle('disable')">Disable</button>
-            &nbsp;
-            &nbsp;
-            &nbsp;
+            &nbsp;&nbsp;&nbsp;
             <button class="myButton" onclick="$('#cb1').tinyToggle('check')">Check</button>
             <button class="myButton" onclick="$('#cb1').tinyToggle('uncheck')">Uncheck</button>
             <button class="myButton" onclick="$('#cb1').tinyToggle('toggle')">Toggle</button>
           </td>
         </tr>
         <tr>
-          <td colspan="2"><div id="event-log"></div></td>
+          <td colspan="2"><div id="event-log" class="event-log"></div></td>
         </tr>
       </table>    
-    </div>
-    
-  </section>  
-  
-  
+    </div>    
+  </section>    
 </div>
       
   <!-- jQuery Import -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-  <script type="text/javascript" src="src/tinytoggle/js/tt-angular.js"></script>
-    
-  <script type="text/javascript" src="src/tinytoggle/js/tiny-toggle.js"></script>
+  <!-- LINK THE SRC TINYTOGGLE JS -->    
+  <script type="text/javascript" src="../src/tinytoggle/js/tiny-toggle.js"></script>
   
   <script type="text/javascript">          
     $( document ).ready( function() {      
@@ -240,16 +245,15 @@
 
        $("#cb1").tinyToggle({
           type: 'circle',          
-          onReady: function(obj) { writeLog("onReady - TinyToggle '" + obj.attr("name") + "'  is ready!"); },
-          onChange: function(obj, value) { writeLog("onChange - Input value changed for '" + obj.attr("name") + "' new value is " + value ); },
-          onCheck: function(obj) { writeLog("onCheck - Input '" + obj.attr("name") + "' now is TRUE"); },
-          onUncheck: function(obj) { writeLog("onUncheck - Input '" + obj.attr("name") + "' now is FALSE"); }         
+          onReady: function(obj) { writeLog("onReady", "TinyToggle '" + obj.attr("name") + "'  is ready!"); },
+          onChange: function(obj, value) { writeLog("onChange", "Input value changed for '" + obj.attr("name") + "' new value is " + value ); },
+          onCheck: function(obj) { writeLog("onCheck", "Input '" + obj.attr("name") + "' now is TRUE"); },
+          onUncheck: function(obj) { writeLog("onUncheck", "Input '" + obj.attr("name") + "' now is FALSE"); }         
         });
     });
     
-    function writeLog(msg){
-      var d = new Date(); 
-      var output = "<span>" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span> &gt; " + msg;
+    function writeLog(event, msg){
+      var output = "<span>TinyToggle::" + event + "</span> &gt; " + msg;
       $("#event-log").append( $("<p/>").html(output) ).scrollTop(+500);      
     }    
     
