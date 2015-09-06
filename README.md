@@ -1,5 +1,5 @@
 # TinyToggle
-jQuery plugin to create a flexible and beauty checkbox input
+jQuery plugin to create a flexible and modern checkbox input
 
 Watch what TinyToggle can do at the [Demo Page](http://simonerighi.net/tinytoggle/demo)
 
