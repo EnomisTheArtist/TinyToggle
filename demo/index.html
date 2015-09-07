@@ -18,7 +18,7 @@
     <section>
       <div class="header">
         <h1>TinyToggle <small><span class="text-muted">Version 1.0.0</span></small></h1>       
-        <p>jQuery plugin to create a <span>flexible and beauty</span> checkbox input</p>
+        <p>jQuery plugin to create a <span>flexible and modern</span> checkbox input</p>
       </div>
       <div class="text-right"><span class="text-muted">Created by EnomisTheArtist - simone.righi@icloud.com</span></div>
     </section> 
@@ -210,8 +210,20 @@
           <td class="title">Test TinyToggle Methods</td>
         </tr>
         <tr>
+          <td>
+            <pre>&lt;input id="cb1" name="my_option" type="checkbox" class="tiny-toggle" 
+        data-tt-label-check="This is checked" 
+        data-tt-label-uncheck="This is unchecked" 
+        data-tt-size="large"&gt;
+            </pre>
+          </td>
+        </tr>
+        <tr>
           <td class="text-center">
-            <input id="cb1" name="my_option" type="checkbox" class="tiny-toggle" data-tt-size="huge">
+            <input id="cb1" name="my_option" type="checkbox" class="tiny-toggle" 
+                    data-tt-label-check="This is checked" 
+                    data-tt-label-uncheck="This is unchecked" 
+                    data-tt-size="large">
           </td>
         </tr>
         <tr>          
@@ -229,7 +241,61 @@
         </tr>
       </table>    
     </div>    
-  </section>    
+  </section>
+  
+  
+  <section id="groups">
+    <div class="header">
+      <h2>Grouping</h2>      
+      <p>With TinyToggle you <span>can manage groups</span> of checkboxes</p>
+    </div>
+    
+    <div class="content">
+    
+      <div class="half">
+        <div class="m-r-xs">    
+          <table class="table">
+            <tr>
+              <td colspan="2" class="title">Work With Groups</td>
+            </tr>
+            <tr>
+              <td class="text-right">My First Option</td>
+              <td><input name="mygroup_option_1" type="checkbox" class="tiny-toggle" data-tt-group="mygroup"></td>
+            </tr>
+            <tr>
+              <td class="text-right">My Second Option</td>
+              <td><input name="mygroup_option_2" type="checkbox" class="tiny-toggle" checked data-tt-group="mygroup"></td>
+            </tr>            
+            <tr>
+              <td class="text-right">My Third Option</td>
+              <td><input name="mygroup_option_3" type="checkbox" class="tiny-toggle" data-tt-group="mygroup"></td>
+            </tr>            
+            <tr>
+              <td class="text-right">My Fourth Option</td>
+              <td><input name="mygroup_option_4" type="checkbox" class="tiny-toggle" checked data-tt-group="mygroup"></td>
+            </tr>            
+            <tr>
+              <td class="text-right">My Fifth Option</td>
+              <td><input name="mygroup_option_5" type="checkbox" class="tiny-toggle" data-tt-group="mygroup"></td>
+            </tr>            
+                       
+          </table>
+        </div>
+      </div>  
+      
+      <div class="half">
+        <div class="m-r-xs">
+           <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('toggle', 'mygroup')">Toggle</button>
+           <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('check', 'mygroup')">Check</button>
+           <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('uncheck', 'mygroup')">Uncheck</button>
+        </div>
+      </div>      
+            
+      <div class="fix"></div>
+            
+    </div>
+   </section>  
+      
 </div>
       
   <!-- jQuery Import -->
@@ -242,14 +308,17 @@
            
        $("#types .tiny-toggle").tinyToggle();
        $("#sizes .tiny-toggle").tinyToggle();
+       $("#groups .tiny-toggle").tinyToggle();
 
        $("#cb1").tinyToggle({
           type: 'circle',          
           onReady: function(obj) { writeLog("onReady", "TinyToggle '" + obj.attr("name") + "'  is ready!"); },
           onChange: function(obj, value) { writeLog("onChange", "Input value changed for '" + obj.attr("name") + "' new value is " + value ); },
-          onCheck: function(obj) { writeLog("onCheck", "Input '" + obj.attr("name") + "' now is TRUE"); },
           onUncheck: function(obj) { writeLog("onUncheck", "Input '" + obj.attr("name") + "' now is FALSE"); }         
         });
+             
+       $("#cb1").tinyToggle('event', 'onCheck', function(obj) { writeLog("onCheck", "Input '" + obj.attr("name") + "' now is TRUE"); });
+       
     });
     
     function writeLog(event, msg){

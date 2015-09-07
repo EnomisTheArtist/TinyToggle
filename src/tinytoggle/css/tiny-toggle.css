@@ -62,7 +62,19 @@
 
 .tt {
   cursor: pointer;
-  line-height: 1em; 
+  line-height: 1em;
+}
+
+.tt-icon {
+	display: inline-block;
+	float: left;
+	padding-top: .07em;
+	padding-right: 0.5em;
+}
+
+.tt-label {
+	display: inline-block;
+	float: left;	
 }
 
 .tt-hover {
@@ -75,3 +87,14 @@
   opacity: 0.40;	
 }
 
+.tt-clearfix {
+	clear: both;
+}
+
+.tt-switch-color {
+	-webkit-transition: color 500ms ease;
+	-moz-transition: color 500ms ease;
+	-ms-transition: color 500ms ease;
+	-o-transition: color 500ms ease;
+	transition: color 500ms ease;
+}
