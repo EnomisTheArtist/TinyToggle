@@ -66,15 +66,18 @@
 }
 
 .tt-icon {
-	display: inline-block;
-	float: left;
-	padding-top: .07em;
-	padding-right: 0.5em;
+		
 }
 
-.tt-label {
-	display: inline-block;
-	float: left;	
+.tt-icon i {   
+	float:left;
+  padding-top: 0.075em;
+}
+
+
+.tt-label {	
+	font-size: 0.8em;
+	padding: 0px 0.5em;
 }
 
 .tt-hover {

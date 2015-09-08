@@ -142,6 +142,11 @@ section .content { margin-top: 25px; }
 }
 
 
+.code {
+	font-size: 0.8em;
+	padding: 15px;
+}
+
  /* HELPERS CLASSES */
  
 .half {

@@ -136,12 +136,14 @@
           if ( opt.labels ) {
             var init_label = opt.labels.both;            
             if ( check && opt.labels.check ) init_label = opt.labels.check;
-            else if ( !check && opt.labels.uncheck ) init_label = opt.labels.uncheck;
-            var label_tag = $("<span/>").addClass("tt-label").html(init_label);            
-            label_tag.click(function(){ me.tinyToggle("toggle"); });
-            container.append(label_tag);
+            else if ( !check && opt.labels.uncheck ) init_label = opt.labels.uncheck;            
+            if ( init_label != null && init_label != "" ) {
+              var label_tag = $("<span/>").addClass("tt-label").html(init_label);            
+              label_tag.click(function(){ me.tinyToggle("toggle"); });
+              container.append(label_tag);              
+            }            
           }
-          container.append($("<div/>").addClass("tt-clearfix"));
+          //container.append($("<div/>").addClass("tt-clearfix"));
           wrapper.append(container); 
           
           

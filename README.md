@@ -131,8 +131,12 @@ You may specify callback functions during the plug-in initialization.
 $("#my-checkbox").tinyToggle({
   onReady:   function(checkbox)  { alert('TinyToggle is ready!'); },
   onChange:  function(checkbox, value)  { alert('value changed now is: ' + value); },
-  onCheck:   function(checkbox)  { alert('value changed now is checked'); },
   onUncheck: function(checkbox)  { alert('value changed now is unchecked'); },
+});
+
+// You can also set specific handler with method 'event'
+$("#my-checkbox").tinyToggle("event", "onCheck", function(obj) {
+  alert('value changed now is unchecked');
 });
 ```
 
@@ -149,6 +153,20 @@ Otherwise you can specify the attribute 'disabled' in the checkbox HTML tag attr
 <input type="checkbox" id="my-checkbox" name="opt1" class="tiny-toggle" disabled>
 ```
 
+# Grouping Controllers
+
+With TinyToggle you can create more groups of controllers so you can toggle, check and uncheck 
+all in the same time. You can specify the group in the html data attribute, using "data-tt-group" 
+attribute or during the plugin intialize set the group option.
+
+```html
+<input type="checkbox" id="my-checkbox" name="opt1" class="tiny-toggle" data-tt-group="my-group">
+```
+```js      
+$("#my-checkbox").tinyToggle({
+  group:   'my-group'
+});
+
 
 # Methods
 
@@ -156,41 +174,57 @@ You can interact with the controller using the implemented methods.
 
 
 ### Toggle
-Switch the status of checkbox.
+Switch the status of checkboxes matched by jQuery selector, 
+if you specify the group name this method will be called
+only for the checkboxes inside the group. 
+
 
 ```js
-  $("#my-checkbox").tinyToggle('toggle');
+  $("#my-checkbox").tinyToggle('toggle', [%group_name%]);
 ```
 
 ### Check
-Set checkbox checked if current status is unchecked otherwise do nothing.
+Set checkbox checked if current status is unchecked otherwise do nothing,
+if you specify the group name this method will be called
+only for the checkboxes inside the group. 
 
 ```js
-  $("#my-checkbox").tinyToggle('check');
+  $("#my-checkbox").tinyToggle('check', [%group_name%]);
 ```
 
 ### Uncheck
-Set checkbox unchecked if current status is checked otherwise do nothing.
+Set checkbox unchecked if current status is checked otherwise do nothing,
+if you specify the group name this method will be called
+only for the checkboxes inside the group. 
 
 ```js
-  $("#my-checkbox").tinyToggle('uncheck');
+  $("#my-checkbox").tinyToggle('uncheck', [%group_name%]);
 ```
 
 ### Enable
-Enable checkbox
+Enable checkbox matched by jQuery selector, 
+if you specify the group name this method will be called
+only for the checkboxes inside the group. 
 
 ```js
-  $("#my-checkbox").tinyToggle('enable');
+  $("#my-checkbox").tinyToggle('enable', [%group_name%]);
 ```
 
 ### Disable
-Disable checkbox
+Disable checkbox matched bt jQuery selector, if you specify 
+the group name this method will be called
+only for the checkboxes inside the group. 
 
 ```js
-  $("#my-checkbox").tinyToggle('disable');
+  $("#my-checkbox").tinyToggle('disable', [%group_name%]);
 ```
 
-
+### Event
+Set specific handler for callbacks matched by jQuery selector.
+  
+```js
+  $("#my-checkbox").tinyToggle('event', ['onChange','onCheck','onUncheck], function() {});
+```
 
 ## License
 Copyright &copy; Simone Righi (simone.righi@icloud.com)<br>
