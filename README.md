@@ -223,7 +223,7 @@ only for the checkboxes inside the group.
 Set specific handler for callbacks matched by jQuery selector.
   
 ```js
-  $("#my-checkbox").tinyToggle('event', ['onChange','onCheck','onUncheck], function() {});
+  $("#my-checkbox").tinyToggle('event', ['onChange','onCheck','onUncheck'], function() {});
 ```
 
 ## License
