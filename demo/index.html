@@ -4,9 +4,10 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
    <title>TinyToggle - jQuery plugin</title>
    <link href='https://fonts.googleapis.com/css?family=Lato:200,400' rel='stylesheet' type='text/css'>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" rel="stylesheet">   
-   <link href="prettify.css" rel="stylesheet">
-   <link href="demo.css" rel="stylesheet">   
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" rel="stylesheet">   
+   <link href="css/prettify.css" rel="stylesheet">
+   <link href="css/demo.css" rel="stylesheet">   
+   <link href="css/font-awesome.min.css" rel="stylesheet">
    <!-- LINK THE SRC TINYTOGGLE CSS -->      
    <link href="../src/tinytoggle/css/tiny-toggle.css" rel="stylesheet">
  </head> 
@@ -14,11 +15,11 @@
  
   <div class="wrapper">
     
-    <a href="https://github.com/EnomisTheArtist/TinyToggle" target="_blank"><img src="github-fork-me.png" class="fork-me"></a>
+    <a href="https://github.com/EnomisTheArtist/TinyToggle" target="_blank"><img src="images/github-fork-me.png" class="fork-me"></a>
   
-    <section>
+    <section class="m-t-none p-t-none">
       <div class="header">
-        <h1>TinyToggle <small><span class="text-muted">Version 1.0.0</span></small></h1>       
+        <h1>TinyToggle <small><span class="text-muted">Version 1.2.0</span></small></h1>       
         <p>jQuery plugin to create a <span>flexible and modern</span> checkbox input</p>
       </div>
       
@@ -26,22 +27,38 @@
         <p style="font-size:1.2em;line-height: 1.3em;">
             TinyToggle is a simple and useful plug-in to mask the checkboxes html 
             inputs tag in your projects. You can choose from 13 different icons 
-            sets available, you can also customize colors palette and size as you like.<br>
+            sets available, you can also customize colors palette and size as you like and extend with external library like
+            Font Awesome.<br>
             <br> 
-            TinyToggle is based on web fonts css it's easy to use and light to include 
-            in your project.        
+            TinyToggle is based on web fonts css it's easy to use and light to include in your project.        
         </p>
+        
+        <h3 class="m-t-xl">News in 1.2.0 Version</h3>
+        <ul>
+          <li>Add groups management</li>
+          <li>Add color css transition for switch status</li>          
+          <li>Add method 'event' to set specific callbacks handler</li>
+          <li>Add optionals labels to controller</li>
+          <li>Add external iconset library integration (Ex. Font Awesome)</li>
+        </ul>
+        
+        <h2 class="m-t-xxl">Docs Contents</h2>
+        <ol>
+          <li><a href="#get-started">Get Started</a></li>
+          <li><a href="#types">Types Available</a></li>
+          <li><a href="#font-awesome">Font Awesome Integration</a> <small style="color:#999999">(<i class="fa fa-bullhorn fa-fw"></i> New Feature)</small></li>
+          <li><a href="#sizes">Sizes and Palettes Available</a></li>
+          <li><a href="#methods">Behaviours and Callbacks</a></li>
+          <li><a href="#groups">Manage Groups</a> <small style="color:#999999">(<i class="fa fa-bullhorn fa-fw"></i> New Feature)</small></li>          
+        </ol>
+        
       </div>
-      
-      <div>
-        <img src="tinytoggle-jquery-plugin.jpg" style="width:100%; height:auto;">
-      </div>
-            
+                  
     </section> 
     
-    <section>
+    <section id="get-started">
       <div class="header">
-        <h2>How to use</h2>       
+        <h2>#1 - Get Started</h2>       
         <p>TinyToggle is <span>simple and usefull</span> trust me!</p>
       </div>      
       
@@ -70,7 +87,9 @@
     onReady: function() { /* do something... */ },
     onChange: function() { /* do something... */ },
     onCheck: function() { /* do something... */ },
-    onUncheck: function() { /* do something... */ }
+    onUncheck: function() { /* do something... */ },
+    onDisabled: function() { /* do something... */ },
+    onEnabled: function() { /* do something... */ }
   });    
 &lt;/script&gt;</pre>
       </div>
@@ -79,7 +98,7 @@
   
     <section id="types">
       <div class="header">
-        <h2>Types Available</h2>       
+        <h2>#2 - Types Available</h2>       
         <p>TinyToggle has <span>13 different types</span> available</p>
       </div>
       
@@ -155,11 +174,41 @@
          </tr> 
         </table>        
       </div>
+      
+      <div class="header" id="font-awesome">
+        <h2>#3 - Font Awsome Integration</h2>       
+        <p>You can also extends the icons set with <a href="https://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a> if you use it in your project.</p>
+      </div>      
+      
+      <div class="content">
+        <p>Use Font Awesome Icons</p>
+        <pre class="prettyprint code">&lt;link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"&gt;
+                
+&lt;input id="custom" name="my_option" type="checkbox" class="tiny-toggle" 
+  data-tt-icon-check="fa fa-battery-0"
+  data-tt-icon-uncheck="fa fa-battery-4"
+  data-tt-label-check="Perfect! Charge Completed" 
+  data-tt-label-uncheck="Beware! Your battery is about to die"&gt;</pre>
+        <table class="table">
+         <tr>
+           <td><input type="checkbox" id="custom" class="tiny-toggle"            
+           data-tt-icon-uncheck="fa fa-battery-1"
+           data-tt-icon-check="fa fa-battery-4"
+           data-tt-color-uncheck="#990000"
+           data-tt-label-check="Perfect! Charge Completed" 
+           data-tt-label-uncheck="Beware! Your battery is about to die"></td>
+         </tr>
+        </table>    
+          
+      </div>      
+      
+      
+      
    </section>
 
   <section id="sizes">
     <div class="header">
-       <h2>Sizes and Palettes Available</h2>      
+       <h2>#4 - Sizes and Palettes Available</h2>      
         <p>TinyToggle has <span>8 different sizes and palettes</span> available</p>
       </div>
       
@@ -262,7 +311,7 @@
   
   <section id="methods">
     <div class="header">
-      <h2>Behaviours and Callbacks</h2>      
+      <h2>#5 - Behaviours and Callbacks</h2>      
       <p>TinyToggle has <span>5 methods</span> implemented</p>
     </div>
     
@@ -282,7 +331,9 @@
        <pre class="prettyprint code">$("#cb1").tinyToggle({          
   onReady: function(obj) { writeLog("onReady", "TinyToggle '" + obj.attr("name") + "'  is ready!"); },
   onChange: function(obj, value) { writeLog("onChange", "Input value changed for '" + obj.attr("name") + "' new value is " + value ); },
-  onUncheck: function(obj) { writeLog("onUncheck", "Input '" + obj.attr("name") + "' now is FALSE"); }        
+  onUncheck: function(obj) { writeLog("onUncheck", "Input '" + obj.attr("name") + "' now is FALSE"); },
+  onDisabled: function(obj) { writeLog("onDisabled", "Input '" + obj.attr("name") + "' now is DISABLED"); },
+  onEnabled: function(obj) { writeLog("onEnabled", "Input '" + obj.attr("name") + "' now is ENABLED"); }          
 });
 
 // You can also set specific handler with method 'event'
@@ -293,7 +344,7 @@ $("#cb1").tinyToggle("event", "onCheck", function(obj) {
 </pre>
       </div>     
     
-      <table class="table">
+      <table class="table m-t-xl">
         <tr>
           <td class="title">Test TinyToggle Methods</td>
         </tr>
@@ -329,7 +380,7 @@ $("#cb1").tinyToggle("event", "onCheck", function(obj) {
   
   <section id="groups">
     <div class="header">
-      <h2>Grouping</h2>      
+      <h2>#6 - Grouping</h2>      
       <p>With TinyToggle you <span>can manage groups</span> of checkboxes</p>
     </div>
     
@@ -407,7 +458,9 @@ $("#groups .tiny-toggle").tinyToggle("uncheck", "%GROUP_NAME%");</pre>
           <td colspan="2" >
            <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('toggle', 'group-two')">Toggle</button>
            <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('check', 'group-two')">Check</button>
-           <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('uncheck', 'group-two')">Uncheck</button>          
+           <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('uncheck', 'group-two')">Uncheck</button>
+           <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('disable', 'group-two')">Disable</button>
+           <button class="myButton" onclick="$('#groups .tiny-toggle').tinyToggle('enable', 'group-two')">Enable</button>
           </td>
         </tr>                                                    
       </table>
@@ -424,7 +477,7 @@ $("#groups .tiny-toggle").tinyToggle("uncheck", "%GROUP_NAME%");</pre>
       
   <!-- js imports -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="prettify.js"></script>
+  <script type="text/javascript" src="js/prettify.js"></script>
   
   <!-- LINK THE SRC TINYTOGGLE JS -->    
   <script type="text/javascript" src="../src/tinytoggle/js/tiny-toggle.js"></script>
@@ -437,11 +490,14 @@ $("#groups .tiny-toggle").tinyToggle("uncheck", "%GROUP_NAME%");</pre>
        $("#types .tiny-toggle").tinyToggle();
        $("#sizes .tiny-toggle").tinyToggle();
        $("#groups .tiny-toggle").tinyToggle({ type: 'square' });
-
+       $("#custom .tiny-toggle").tinyToggle();
+       
        $("#cb1").tinyToggle({          
           onReady: function(obj) { writeLog("onReady", "TinyToggle '" + obj.attr("name") + "'  is ready!"); },
           onChange: function(obj, value) { writeLog("onChange", "Input value changed for '" + obj.attr("name") + "' new value is " + value ); },
-          onUncheck: function(obj) { writeLog("onUncheck", "Input '" + obj.attr("name") + "' now is FALSE"); }         
+          onUncheck: function(obj) { writeLog("onUncheck", "Input '" + obj.attr("name") + "' now is FALSE"); },
+          onDisabled: function(obj) { writeLog("onDisabled", "Input '" + obj.attr("name") + "' now is DISABLED"); },
+          onEnabled: function(obj) { writeLog("onEnabled", "Input '" + obj.attr("name") + "' now is ENABLED"); }
         });
              
        $("#cb1").tinyToggle('event', 'onCheck', function(obj) { writeLog("onCheck", "Input '" + obj.attr("name") + "' now is TRUE"); });

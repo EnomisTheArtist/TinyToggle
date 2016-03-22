@@ -13,7 +13,9 @@
           onReady: null,
           onChange: null,
           onCheck: null,
-          onUncheck: null
+          onUncheck: null,
+          onEnabled: null,
+          onDisabled: null
         },
         types: {
           toggle:     { checked: 'tt-switch-on', unchecked: 'tt-switch-off' },
@@ -73,7 +75,7 @@
           var wrapper = me.parent();              
           var container = $("<div/>").addClass("tt").append(me);
           var span = $("<span\>").addClass("tt-icon");
-          var icon = $("<i/>").addClass("tt-switch-color");          
+          var icon = $("<i/>");          
           span.append(icon);
           
           // CHECK GROUP DATA ATTRIBUTE
@@ -102,7 +104,19 @@
               opt.type = me.data("tt-type"); 
             }
           }              
+          
           opt.icons = $.extend({}, $.fn.TinyToggle.types[ opt.type ]);
+          
+          // CUSTOM ICONS DEFINITION
+          // IF YOU WANT USE COMPLETE FONT-AWSOME ICONSETS YOU CAN
+          // SET THE ATTRIBUTES: data-tt-icon-check="fa fa-camera-retro"
+          if ( me.data("tt-icon-check") != undefined ) {
+            opt.icons = { checked: me.data("tt-icon-check"), unchecked: me.data("tt-icon-check") };
+          }          
+          if ( me.data("tt-icon-uncheck") != undefined ) {
+            opt.icons.unchecked =  me.data("tt-icon-uncheck");
+          }
+          
           
           // PALETTE DEFINITIONS
           if ( me.data("tt-palette") != undefined ) {
@@ -125,11 +139,13 @@
           var check = me.is(":checked");
           if ( check ) {   
             icon.addClass( opt.icons.checked );
-            icon.css('color', opt.colors.check);
+            span.css('color', opt.colors.check);
           } else {
             icon.addClass( opt.icons.unchecked );
-            icon.css('color', opt.colors.uncheck);               
+            span.css('color', opt.colors.uncheck);               
           }                                         
+          
+          span.addClass("tt-switch-color");
           
           // APPEND ICON TO THE SPAN AND THE SPAN TO THE WRAPPER
           container.append(span);          
@@ -152,8 +168,8 @@
           
           // MANAGE HOVER STATUS FOR THE SPAN WRAPPER
           container.hover(
-              function() { if ( !me.data("disabled") ) $(this).find("i").addClass("tt-hover") },
-              function() { if ( !me.data("disabled") ) $(this).find("i").removeClass("tt-hover") }  
+              function() { if ( !me.data("disabled") ) $(this).find("span.tt-icon").addClass("tt-hover") },
+              function() { if ( !me.data("disabled") ) $(this).find("span.tt-icon").removeClass("tt-hover") }  
           );
                         
           opt.ui = container;
@@ -168,17 +184,19 @@
       toggle: function(group) {
         return this.each(function(){
           var me = $(this);
-          if ( !me.data("disabled") ) {
-            var check = me.is(":checked");
-            var data = me.data();              
+          var data = me.data();
+          if ( !data.disabled ) {
+            var check = me.is(":checked");              
             if ( group == undefined || data.group == group ) {             
               if ( check ) {
-                data.ui.find("i").removeClass( data.icons.checked ).addClass( data.icons.unchecked ).css('color', data.colors.uncheck);
+                data.ui.find("i").removeClass( data.icons.checked ).addClass( data.icons.unchecked );
+                data.ui.find("span.tt-icon").css('color', data.colors.uncheck);
                 me.prop("checked", false).removeAttr("checked");
                 if ( data.labels.uncheck ) data.ui.find(".tt-label").html( data.labels.uncheck );
                 if ( $.isFunction(data.onUncheck) ) data.onUncheck.call(this, me);
               } else {
-                data.ui.find("i").removeClass( data.icons.unchecked ).addClass( data.icons.checked ).css('color', data.colors.check);
+                data.ui.find("i").removeClass( data.icons.unchecked ).addClass( data.icons.checked );
+                data.ui.find("span.tt-icon").css('color', data.colors.check);
                 me.prop("checked", true).attr("checked", "checked");
                 if ( data.labels.check ) data.ui.find(".tt-label").html( data.labels.check );
                 if ( $.isFunction(data.onCheck)) data.onCheck.call(this, me);
@@ -190,31 +208,45 @@
       },
       check: function(group) {
         return this.each(function(){
-          if ( group == undefined || $(this).data("group") == group ) {  
-            if ( !$(this).is(":checked") && !$(this).data("disabled")  )  $(this).tinyToggle("toggle");
+          var me = $(this);
+          var data = me.data();          
+          if ( group == undefined || data.group == group ) {  
+            if ( !me.is(":checked") && !me.data("disabled") ) me.tinyToggle("toggle");
           }
         });
       },
       uncheck: function(group) {
-        return this.each(function(){          
-          if ( group == undefined || $(this).data("group") == group ) {
-            if ( $(this).is(":checked") && !$(this).data("disabled") )  $(this).tinyToggle("toggle");
+        return this.each(function(){
+          var me = $(this);
+          var data = me.data();
+          if ( group == undefined || data.group == group ) {
+            if ( me.is(":checked") && !me.data("disabled") )  me.tinyToggle("toggle");
           }
         });
       },
       disable: function(group) {
-        return this.each(function(){
-          if ( group == undefined || $(this).data("group") == group ) {
-            $(this).data('disabled', true);
-            $(this).data("ui").addClass("tt-disabled");
+        return this.each(function() {
+          var me = $(this);
+          var data = me.data();
+          if ( group == undefined || data.group == group ) {
+            if ( data.disabled == false ) {
+              me.data('disabled', true);
+              me.data("ui").addClass("tt-disabled");
+              if ( $.isFunction(data.onDisabled ) ) data.onDisabled.call( this, me, me.is(":checked") );
+            }
           }
         });        
       },
       enable: function(group) {
-        return this.each(function(){
-          if ( group == undefined || $(this).data("group")== group ) {
-            $(this).data('disabled', false);
-            $(this).data("ui").removeClass("tt-disabled");
+        return this.each(function() {
+          var me = $(this)
+          var data = me.data();
+          if ( group == undefined || data.group == group ) {             
+            if ( data.disabled == true ) {
+              me.data('disabled', false);
+              me.data("ui").removeClass("tt-disabled");
+              if ( $.isFunction(data.onEnabled) ) data.onEnabled.call( this, me, me.is(":checked") );
+            }
           }
         });        
       },
