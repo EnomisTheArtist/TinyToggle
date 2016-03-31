@@ -1,7 +1,7 @@
 # TinyToggle
 jQuery plugin to create a flexible and modern checkbox input
 
-Watch what TinyToggle can do at the [Docs Page](http://simonerighi.net/tinytoggle/demo)
+Watch what TinyToggle can do at the [Docs Page](http://tinytoggle.simonerighi.net/)
 
 ## Install
 
@@ -39,7 +39,7 @@ $( document ).ready( function() {
 **That's all... :)**
 
 ## Documentation
-Read complete documentation in [TinyToggle Offical Page](http://simonerighi.net/tinytoggle/demo)
+Read complete documentation in [TinyToggle Offical Page](http://tinytoggle.simonerighi.net/)
 
 
 ## License
