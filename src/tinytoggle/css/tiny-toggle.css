@@ -34,6 +34,7 @@
   text-transform: none !important;
   speak: none;
   line-height: 1;
+  vertical-align: middle;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -62,7 +63,22 @@
 
 .tt {
   cursor: pointer;
-  line-height: 1em; 
+  line-height: 1em;
+}
+
+.tt-icon {
+		
+}
+
+.tt-icon i {   
+  padding-top: 0.075em;
+}
+
+
+.tt-label {	
+	font-size: 0.8em;
+	line-height: 1em;
+	padding: 0px 0.5em;
 }
 
 .tt-hover {
@@ -75,3 +91,14 @@
   opacity: 0.40;	
 }
 
+.tt-clearfix {
+	clear: both;
+}
+
+.tt-switch-color {
+	-webkit-transition: color 750ms ease;
+	-moz-transition: color 750ms ease;
+	-ms-transition: color 750ms ease;
+	-o-transition: color 750ms ease;
+	transition: color 750ms ease;
+}

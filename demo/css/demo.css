@@ -44,7 +44,7 @@ section {
 }
 
 section .header {
-	margin-top: 50px;
+	padding-top: 50px;
 	margin-bottom: 15px;
 	border-bottom: 1px solid #ECECEC;
 }
@@ -100,7 +100,18 @@ section .content { margin-top: 25px; }
   color: #999;
 }
 
+a:link, a:visited {
+	text-decoration: none;
+	color: #e04a00;
+  font-weight: bold;	
+}
+a:hover {
+  color: #9b3d0f;
+}
 
+li {	
+  padding: 5px 0px;	
+}
 
 .myButton {
   -moz-box-shadow:inset 0px 1px 0px 0px #54a3f7;
@@ -142,6 +153,11 @@ section .content { margin-top: 25px; }
 }
 
 
+.code {
+	font-size: 0.8em;
+	padding: 15px;
+}
+
  /* HELPERS CLASSES */
  
 .half {
@@ -159,6 +175,12 @@ section .content { margin-top: 25px; }
 .text-center { text-align: center; }
 .text-right {	text-align: right; }
 
+.p-t-none { padding-top: 0px; }
+.p-t-xl { padding-top: 50px; }
+
+.m-t-none { margin-top: 0px; }
+.m-t-xxl { margin-top: 100px; }
+.m-t-xl { margin-top: 50px; }
 .m-l-xs { margin-left: 5px; }
 .m-r-xs { margin-right: 5px; }
 
