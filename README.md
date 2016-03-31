@@ -1,14 +1,11 @@
-<<<<<<< HEAD
 # TinyToggle
 jQuery plugin to create a flexible and modern checkbox input
-=======
-# TinyToggle v1.0.0
-jQuery plugin to create a flexible and modern checkbox input
+
 
 TinyToggle is a simple and useful plug-in to mask the checkboxes html inputs tag in your html projects. You can choose from 13 different icons sets available, you can also customize colors palette and size as you like. 
 
 TinyToggle is based on web fonts css it's easy to use and light to include in your project. 
->>>>>>> master
+
 
 Watch what TinyToggle can do at the [Docs Page](http://tinytoggle.simonerighi.net/)
 
