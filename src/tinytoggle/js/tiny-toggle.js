@@ -10,12 +10,13 @@
           icons: null,
           group: null,
           disabled: false,
-          onReady: null,
-          onChange: null,
-          onCheck: null,
-          onUncheck: null,
-          onEnabled: null,
-          onDisabled: null
+          onReady: null,    // Fired when the control is ready
+          onClick: null,    // Fired when user click on the controller
+          onChange: null,   // Fired when the value of input change          
+          onCheck: null,    // Fired when the controller become checked
+          onUncheck: null,  // Fired when the controller become unchecked
+          onEnabled: null,  // Fired when the controller become enabled
+          onDisabled: null  // Fired when the controller become disabled
         },
         types: {
           toggle:     { checked: 'tt-switch-on', unchecked: 'tt-switch-off' },
@@ -154,64 +155,90 @@
             if ( check && opt.labels.check ) init_label = opt.labels.check;
             else if ( !check && opt.labels.uncheck ) init_label = opt.labels.uncheck;            
             if ( init_label != null && init_label != "" ) {
-              var label_tag = $("<span/>").addClass("tt-label").html(init_label);            
-              label_tag.click(function(){ me.tinyToggle("toggle"); });
+              var label_tag = $("<span/>").addClass("tt-label").html(init_label);
+              
+              // MANAGE CLICK EVENT IN LABEL
+              label_tag.click(function() {
+                if ( !me.data().disabled ) {
+                  me.tinyToggle("toggle");
+                  if ( $.isFunction( me.data().onClick ) ) me.data().onClick.call(this, me) ;
+                }
+              });
+              
+              // MANAGE HOVER STATUS
+              label_tag.hover(
+                  function() { if ( !me.data("disabled") ) $(this).parent().find("span.tt-icon").addClass("tt-hover") },
+                  function() { if ( !me.data("disabled") ) $(this).parent().find("span.tt-icon").removeClass("tt-hover") }  
+              );
+              
               container.append(label_tag);              
             }            
           }
-          //container.append($("<div/>").addClass("tt-clearfix"));
+
           wrapper.append(container); 
           
-          
-          // MANAGE CLICK EVENT ON THE ICON OBJECT
-          icon.click(function(){ me.tinyToggle("toggle"); });    
-          
-          // MANAGE HOVER STATUS FOR THE SPAN WRAPPER
-          container.hover(
-              function() { if ( !me.data("disabled") ) $(this).find("span.tt-icon").addClass("tt-hover") },
-              function() { if ( !me.data("disabled") ) $(this).find("span.tt-icon").removeClass("tt-hover") }  
-          );
-                        
           opt.ui = container;
+                    
+          // MANAGE CLICK EVENT ON THE ICON OBJECT
+          icon.click(function(){   
+            if ( !me.data().disabled ) {
+              me.tinyToggle("toggle");
+              if ( $.isFunction( me.data().onClick ) ) me.data().onClick.call(this, me);
+            }
+          });    
+          
+          // MANAGE HOVER STATUS FOR THE ICON                        
+          icon.hover(
+              function() { if ( !me.data("disabled") ) $(this).addClass("tt-hover") },
+              function() { if ( !me.data("disabled") ) $(this).removeClass("tt-hover") }  
+          );     
+                              
+          // CALLBACK ONREADY EVENT IF EXISTS
+          if ( $.isFunction( opt.onReady ) ) opt.onReady.call(this, me);
           
           // STORE THE OBJECT DATA
-          me.data( opt );     
-          
-          // CALLBACK ONREADY EVENT IF EXISTS
-          if ( $.isFunction( opt.onReady ) ) opt.onReady.call(this, me);          
+          me.data( opt ); 
         });         
       },     
       toggle: function(group) {
         return this.each(function(){
           var me = $(this);
           var data = me.data();
-          if ( !data.disabled ) {
-            var check = me.is(":checked");              
-            if ( group == undefined || data.group == group ) {             
-              if ( check ) {
-                data.ui.find("i").removeClass( data.icons.checked ).addClass( data.icons.unchecked );
-                data.ui.find("span.tt-icon").css('color', data.colors.uncheck);
-                me.prop("checked", false).removeAttr("checked");
-                if ( data.labels.uncheck ) data.ui.find(".tt-label").html( data.labels.uncheck );
-                if ( $.isFunction(data.onUncheck) ) data.onUncheck.call(this, me);
-              } else {
-                data.ui.find("i").removeClass( data.icons.unchecked ).addClass( data.icons.checked );
-                data.ui.find("span.tt-icon").css('color', data.colors.check);
-                me.prop("checked", true).attr("checked", "checked");
-                if ( data.labels.check ) data.ui.find(".tt-label").html( data.labels.check );
-                if ( $.isFunction(data.onCheck)) data.onCheck.call(this, me);
-              }         
-              if ( $.isFunction(data.onChange) ) data.onChange.call( this, me, me.is(":checked") );
-            }
+          var check = me.is(":checked");              
+          if ( group == undefined || data.group == group ) {             
+            if ( check ) me.prop("checked", false).removeAttr("checked");
+            else me.prop("checked", true).attr("checked", "checked");   
+            me.tinyToggle('refresh');
+            if ( $.isFunction(data.onChange) ) data.onChange.call( this, me, me.is(":checked") );
           }
         });
+      },
+      refresh: function(group) {        
+        return this.each(function(){
+          var me = $(this);
+          var data = me.data();
+          var check = me.is(":checked"); 
+          if ( group == undefined || data.group == group ) { 
+            if ( check ) {
+              data.ui.find("i").removeClass( data.icons.unchecked ).addClass( data.icons.checked );
+              data.ui.find("span.tt-icon").css('color', data.colors.check);
+              if ( data.labels.check ) data.ui.find(".tt-label").html( data.labels.check );
+              if ( $.isFunction(data.onCheck)) data.onCheck.call(this, me);                
+            } else {
+              data.ui.find("i").removeClass( data.icons.checked ).addClass( data.icons.unchecked );
+              data.ui.find("span.tt-icon").css('color', data.colors.uncheck);
+              if ( data.labels.uncheck ) data.ui.find(".tt-label").html( data.labels.uncheck );
+              if ( $.isFunction(data.onUncheck) ) data.onUncheck.call(this, me);
+            }                
+          }
+        });        
       },
       check: function(group) {
         return this.each(function(){
           var me = $(this);
-          var data = me.data();          
+          var data = me.data();  
           if ( group == undefined || data.group == group ) {  
-            if ( !me.is(":checked") && !me.data("disabled") ) me.tinyToggle("toggle");
+            if ( !me.is(":checked") ) me.tinyToggle("toggle");
           }
         });
       },
@@ -220,7 +247,7 @@
           var me = $(this);
           var data = me.data();
           if ( group == undefined || data.group == group ) {
-            if ( me.is(":checked") && !me.data("disabled") )  me.tinyToggle("toggle");
+            if ( me.is(":checked") )  me.tinyToggle("toggle");
           }
         });
       },

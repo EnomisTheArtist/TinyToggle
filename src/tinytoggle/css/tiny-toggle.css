@@ -61,13 +61,12 @@
 .tt-star:before { content: "v"; }
 .tt-like:before { content: "x"; }
 
-.tt {
-  cursor: pointer;
+.tt {  
   line-height: 1em;
 }
 
 .tt-icon {
-		
+	cursor: pointer;
 }
 
 .tt-icon i {   
@@ -75,7 +74,8 @@
 }
 
 
-.tt-label {	
+.tt-label {
+	cursor: pointer;
 	font-size: 0.8em;
 	line-height: 1em;
 	padding: 0px 0.5em;
