@@ -44,6 +44,35 @@ $( document ).ready( function() {
 
 **That's all... :)**
 
+
+## AngularJs Directive
+
+Use TinyToggle in your AngularJs projects. 
+
+```html
+<script src="%your_js_assets_path%/ng.tinytoggle.min.js" type="text/javascript"></script>
+```
+
+```js
+angular.module('ttApp', ['tinytoggle'])
+  .controller('DemoNgController', function($scope, $log) {    
+      $scope.myValue = true;
+      $scope.mychange = function() {        
+        $log.info("Value changed: " + $scope.myValue );
+      }
+      /* ...others functions */
+  });
+```
+
+```html
+<input tiny-toggle ng-model="myValue"
+  tt-ng-change="mychange()"
+  type="checkbox" 
+  class="tiny-toggle" 
+  data-tt-size="big">
+```
+
+
 ## Documentation
 Read complete documentation in [TinyToggle Offical Page](http://tinytoggle.simonerighi.net/)
 
