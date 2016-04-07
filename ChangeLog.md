@@ -7,6 +7,7 @@
  * Add method 'event' to set specific callbacks handler
  * Add optionals labels to controller 
  * Add external iconset library integration (Ex. Font Awesome)
+ * Add AngularJs Directive
 
 
 ## 1.0.0
