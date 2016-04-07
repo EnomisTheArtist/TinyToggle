@@ -40,6 +40,7 @@
           <li>Add method 'event' to set specific callbacks handler</li>
           <li>Add optionals labels to controller</li>
           <li>Add external iconset library integration (Ex. Font Awesome)</li>
+          <li>AngularJs Directive</li>
         </ul>
         
         <h2 class="m-t-xxl">Docs Contents</h2>
@@ -49,7 +50,8 @@
           <li><a href="#font-awesome">Font Awesome Integration</a> <small style="color:#999999">(<i class="fa fa-bullhorn fa-fw"></i> New Feature)</small></li>
           <li><a href="#sizes">Sizes and Palettes Available</a></li>
           <li><a href="#methods">Behaviours and Callbacks</a></li>
-          <li><a href="#groups">Manage Groups</a> <small style="color:#999999">(<i class="fa fa-bullhorn fa-fw"></i> New Feature)</small></li>          
+          <li><a href="#groups">Manage Groups</a> <small style="color:#999999">(<i class="fa fa-bullhorn fa-fw"></i> New Feature)</small></li>
+          <li><a href="#ng">AngularJs Directive</a> <small style="color:#999999">(<i class="fa fa-bullhorn fa-fw"></i> New Feature)</small></li>
         </ol>
         
       </div>
@@ -85,6 +87,7 @@
     palette: "red", 
     size:    "huge", // you can also specify defined custom sizes Ex. "mysize"
     onReady: function() { /* do something... */ },
+    onClick: function() { /* do something */ },
     onChange: function() { /* do something... */ },
     onCheck: function() { /* do something... */ },
     onUncheck: function() { /* do something... */ },
@@ -330,6 +333,7 @@
        <p>Javascript code</p>
        <pre class="prettyprint code">$("#cb1").tinyToggle({          
   onReady: function(obj) { writeLog("onReady", "TinyToggle '" + obj.attr("name") + "'  is ready!"); },
+  onClick: function(obj) { writeLog("onClick", "TinyToggle '" + obj.attr("name") + "'  was clicked!"); },
   onChange: function(obj, value) { writeLog("onChange", "Input value changed for '" + obj.attr("name") + "' new value is " + value ); },
   onUncheck: function(obj) { writeLog("onUncheck", "Input '" + obj.attr("name") + "' now is FALSE"); },
   onDisabled: function(obj) { writeLog("onDisabled", "Input '" + obj.attr("name") + "' now is DISABLED"); },
@@ -467,6 +471,127 @@ $("#groups .tiny-toggle").tinyToggle("uncheck", "%GROUP_NAME%");</pre>
       
     </div>
   </section>  
+  
+  
+  <section id="ng" ng-app="ttApp">
+    <div class="header">
+      <h2>#7 - AngularJs Directive</h2>      
+      <p>Directive for use TinyToggle in <span>AngularJs</span> projects</p>
+    </div>  
+    
+    <div class="content">
+      
+      <div ng-non-bindable>
+        <p>Use TinyToggle angular directive</p>
+        
+        
+        <pre class="prettyprint code">/* Include angular tinytoggle module */  
+&lt;script src=&quot;%your_js_assets_path%/ng.tinytoggle.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;        
+</pre>
+        
+<pre class="prettyprint code">/* Add tinytoggle dependencing in your app */
+angular.module('ttApp', ['tinytoggle'])
+  .controller('DemoNgController', function($scope) {
+    $scope.myValue = true;
+    $scope.enabled = true;
+    
+    $scope.mychange = function() {        
+      $scope.log("Value changed: " + $scope.myValue );
+    }
+    
+    /* ...my others controller functions */    
+  });        
+        
+</pre>
+
+<pre class="prettyprint code">
+// in HTML tag...        
+&lt;input tiny-toggle ng-model="myValue"
+  tt-ng-change="mychange()"
+  tt-ng-click="myclick()"
+  tt-ng-active="enabled" 
+  tt-ng-ready="%myReadyFunc%"
+  tt-ng-check="%myCheckFunc%"
+  tt-ng-uncheck="%myUnCheckFunc%"
+  tt-ng-enabled="%myEnabledFunc%"
+  tt-ng-disabled="%myDisabledFunc%"
+  type="checkbox" 
+  class="tiny-toggle" 
+  data-tt-size="big"&gt;
+    
+&lt;p&gt;The scope var 'myValue' now is: &lt;span&gt;{{ myToggleValue }}&lt;/span&gt;&lt;/p&gt;</pre>
+      </div>        
+      
+      <div ng-controller="DemoNgController">
+        <div>    
+          <input tiny-toggle type="checkbox" ng-model="myValue" 
+              tt-ng-change="mychange()"
+              tt-ng-click="myclick()"
+              tt-ng-active="enabled" 
+              class="tiny-toggle" 
+              data-tt-size="big">
+        </div>
+        <p>The scope var 'myValue' now is: <span>{{ myValue }}</span></p>
+        
+        <div>        
+          <button class="myButton"  ng-click="myValue=!myValue">Switch Toggle Value</button>
+          <button class="myButton" ng-click="enabled=!enabled">Enable/Disable</button>
+          <button class="myButton" ng-click="logs=[]">Clear Logs</button>
+        </div>
+        
+        <div class="event-log m-t">
+          <p ng-repeat="row in logs"><span>Angular </span> {{ row }}</p>
+        </div>
+        
+      <div class="m-t" ng-non-bindable>
+        <p>Use tinyToggle in angular <span>ng-repeator</span></p>
+        <pre class="prettyprint code">// in controller...
+$scope.options = [
+     {name:'Option One', val:true},
+     {name:'Option Two', val:false},
+     {name:'Option Three', val:true}
+];
+</pre>
+
+<pre class="prettyprint code">
+// in template ...
+&lt;input tiny-toggle ng-repeat="opt in options" ng-model="opt.val" 
+  type="checkbox" 
+  data-tt-group="options-group"
+  class="tiny-toggle"
+  data-tt-label="{{ opt.name }}"&gt;
+</pre>    
+      </div>         
+        
+        <div class="m-t">
+          <table class="table">
+            <tr>
+              <td colspan="2" class="title">Work With Groups on Angular Repeator</td>
+            </tr>             
+            <tr>
+              <td style="width:50%;">
+                <input ng-repeat="opt in options" tiny-toggle type="checkbox" ng-model="opt.val" 
+                  class="tiny-toggle" 
+                  data-tt-group="options-group"
+                  data-tt-label="{{ opt.name }}">
+              </td>
+              <td style="width:50%;">
+                  <pre style="color:font-face:monospace;font-size:11px;">{{ options | json }}</pre>                
+              </td>             
+            </tr>
+            <tr>
+              <td colspan="2" class="text-center">
+                <button class="myButton" onCLick="$('.tiny-toggle').tinyToggle('toggle', 'options-group');">Toggle All Options</button>
+                <button class="myButton" onClick="$('.tiny-toggle').tinyToggle('check', 'options-group');">Check All Options</button>
+                <button class="myButton" onClick="$('.tiny-toggle').tinyToggle('uncheck', 'options-group');">Uncheck All Options</button>              
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+  </section>
    
   <section id="footer" class="b-t">
     <div class="text-center m-t"><span class="text-muted">Created by EnomisTheArtist - simone.righi@icloud.com</span></div>  
@@ -475,9 +600,15 @@ $("#groups .tiny-toggle").tinyToggle("uncheck", "%GROUP_NAME%");</pre>
       
 </div>
       
-  <!-- js imports -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <!-- js imports -->    
+  <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
   <script type="text/javascript" src="js/prettify.js"></script>
+  
+  <!-- angular js imports -->
+  <script type="text/javascript" src="js/angular.min.js"></script>
+  <script type="text/javascript" src="../src/tinytoggle/js/ng-tiny-toggle.js"></script>
+  <script type="text/javascript" src="js/ttApp.js"></script>
+ 
   
   <!-- LINK THE SRC TINYTOGGLE JS -->    
   <script type="text/javascript" src="../src/tinytoggle/js/tiny-toggle.js"></script>
@@ -494,6 +625,7 @@ $("#groups .tiny-toggle").tinyToggle("uncheck", "%GROUP_NAME%");</pre>
        
        $("#cb1").tinyToggle({          
           onReady: function(obj) { writeLog("onReady", "TinyToggle '" + obj.attr("name") + "'  is ready!"); },
+          onClick: function(obj) { writeLog("onClick", "TinyToggle '" + obj.attr("name") + "'  was clicked!"); },
           onChange: function(obj, value) { writeLog("onChange", "Input value changed for '" + obj.attr("name") + "' new value is " + value ); },
           onUncheck: function(obj) { writeLog("onUncheck", "Input '" + obj.attr("name") + "' now is FALSE"); },
           onDisabled: function(obj) { writeLog("onDisabled", "Input '" + obj.attr("name") + "' now is DISABLED"); },

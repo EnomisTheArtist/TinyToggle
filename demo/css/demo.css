@@ -81,7 +81,7 @@ section .content { margin-top: 25px; }
 
 .event-log {
 	overflow: auto;	
-	background-color: #333333;
+	background-color: #555;
 	color: #f7f7f7;
 	border: none;
 	font-family: monospace;
@@ -181,6 +181,7 @@ li {
 .m-t-none { margin-top: 0px; }
 .m-t-xxl { margin-top: 100px; }
 .m-t-xl { margin-top: 50px; }
+.m-t { margin-top: 20px; }
 .m-l-xs { margin-left: 5px; }
 .m-r-xs { margin-right: 5px; }
 
