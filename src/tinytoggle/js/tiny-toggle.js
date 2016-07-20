@@ -74,7 +74,7 @@
           var me = $(this);
           me.hide();
           var wrapper = me.parent();              
-          var container = $("<div/>").addClass("tt").append(me);
+          var container = $("<span/>").addClass("tt").append(me);
           var span = $("<span\>").addClass("tt-icon");
           var icon = $("<i/>");          
           span.append(icon);
